@@ -9,10 +9,23 @@ using WebAPI.Interfaces;
 
 namespace WebAPI.Repositories
 {
+    /// <summary>
+    /// Class InMemoryProductsRepository.
+    /// Implements the <see cref="WebAPI.Interfaces.IProductsRepository" />
+    /// </summary>
+    /// <seealso cref="WebAPI.Interfaces.IProductsRepository" />
     public class InMemoryProductsRepository : IProductsRepository
     {
+        /// <summary>
+        /// The products
+        /// </summary>
         private static readonly ConcurrentDictionary<int, Product> products = new ConcurrentDictionary<int, Product>();
 
+        /// <summary>
+        /// Adds the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool Add(Product entity)
         {
             int newId = 1;
@@ -22,6 +35,11 @@ namespace WebAPI.Repositories
             return products.TryAdd(newId, entity);
         }
 
+        /// <summary>
+        /// Deletes the specified entity identifier.
+        /// </summary>
+        /// <param name="entityId">The entity identifier.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool Delete(int entityId)
         {
             if (products.ContainsKey(entityId))
@@ -32,11 +50,20 @@ namespace WebAPI.Repositories
             return false;
         }
 
+        /// <summary>
+        /// Gets all.
+        /// </summary>
+        /// <returns>IQueryable&lt;Product&gt;.</returns>
         public IQueryable<Product> GetAll()
         {
             return products.Values.AsQueryable();
         }
 
+        /// <summary>
+        /// Gets the by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Product.</returns>
         public Product GetById(int id)
         {
             if (products.ContainsKey(id))
@@ -44,6 +71,11 @@ namespace WebAPI.Repositories
             return null;
         }
 
+        /// <summary>
+        /// Updates the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool Update(Product entity)
         {
             if (products.ContainsKey(entity.Id))

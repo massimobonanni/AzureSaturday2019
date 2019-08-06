@@ -4,5 +4,51 @@
         <name>WebAPI</name>
     </assembly>
     <members>
+        <member name="T:WebAPI.Repositories.InMemoryProductsRepository">
+            <summary>
+            Class InMemoryProductsRepository.
+            Implements the <see cref="T:WebAPI.Interfaces.IProductsRepository" />
+            </summary>
+            <seealso cref="T:WebAPI.Interfaces.IProductsRepository" />
+        </member>
+        <member name="F:WebAPI.Repositories.InMemoryProductsRepository.products">
+            <summary>
+            The products
+            </summary>
+        </member>
+        <member name="M:WebAPI.Repositories.InMemoryProductsRepository.Add(WebAPI.Entities.Product)">
+            <summary>
+            Adds the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:WebAPI.Repositories.InMemoryProductsRepository.Delete(System.Int32)">
+            <summary>
+            Deletes the specified entity identifier.
+            </summary>
+            <param name="entityId">The entity identifier.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:WebAPI.Repositories.InMemoryProductsRepository.GetAll">
+            <summary>
+            Gets all.
+            </summary>
+            <returns>IQueryable&lt;Product&gt;.</returns>
+        </member>
+        <member name="M:WebAPI.Repositories.InMemoryProductsRepository.GetById(System.Int32)">
+            <summary>
+            Gets the by identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>Product.</returns>
+        </member>
+        <member name="M:WebAPI.Repositories.InMemoryProductsRepository.Update(WebAPI.Entities.Product)">
+            <summary>
+            Updates the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        </member>
     </members>
 </doc>

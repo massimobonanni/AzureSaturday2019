@@ -58,6 +58,7 @@ namespace WebAPI
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "MBSoft WebAPI");
+                c.RoutePrefix = string.Empty;
             });
         }
     }
