@@ -16,6 +16,22 @@ namespace WebAPI.Repositories
     /// <seealso cref="WebAPI.Interfaces.IProductsRepository" />
     public class InMemoryProductsRepository : IProductsRepository
     {
+        public InMemoryProductsRepository()
+        {
+            SeedData();
+        }
+
+        private void SeedData()
+        {
+            if (!products.Any())
+            {
+                foreach (var product in ProductsHelper.GenerateProducts())
+                {
+                    products.TryAdd(product.Id, product);
+                }
+            }
+        }
+
         /// <summary>
         /// The products
         /// </summary>
