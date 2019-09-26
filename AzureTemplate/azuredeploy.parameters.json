@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "sites_WebApi_name": {
+      "value": "MBSoftProducts"
+    },
+    "sites_MathService_name": {
+      "value": "MBSoftMathService"
+    },
+    "serverfarms_Plan_name": {
+      "value": "azuredayreloaded-plan"
+    },
+    "service_APIManagement_name": {
+      "value": "azuredayreloaded"
+    },
+    "components_ApplicationInsight_name": {
+      "value": "azuredayreloaded-ai"
+    },
+    "APIManagement_owner_mail": {
+      "value": "massimo.bonanni@tiscali.it"
+    }
+  }
+}

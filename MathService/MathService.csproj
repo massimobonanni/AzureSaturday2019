@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\AzureSaturday2019MathService - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\MBSoftMathService - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
