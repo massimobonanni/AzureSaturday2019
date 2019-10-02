@@ -53,5 +53,5 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish $(wcfService) artifact'
   inputs:
-    pathtoPublish: '$(build.artifactStagingDirectory)\WCFService.zip' 
+    pathtoPublish: '$(PackageFileName)' 
     artifactName: 'wcfService' 
