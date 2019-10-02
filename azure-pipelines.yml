@@ -35,7 +35,7 @@ steps:
   displayName: 'Build WCF Service'
   inputs:
     solution: '$(wcfService)'
-    msbuildArgs: '/p:OutputPath="$(build.artifactStagingDirectory)\WCFService.zip" /p:OutDir="$(build.artifactStagingDirectory)" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WCFService.zip" /p:DeployIisAppPath="Default Web Site"'
+    msbuildArgs: '/p:OutDir="$(build.artifactStagingDirectory)" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WCFService.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
@@ -53,5 +53,5 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish $(wcfService) artifact'
   inputs:
-    pathtoPublish: $(PackageFileName)
+    pathtoPublish: 'd:\a\1\a\_PublishedWebsites\MathService_Package\MathService.zip'
     artifactName: 'wcfService' 
