@@ -53,5 +53,5 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish $(wcfService) artifact'
   inputs:
-    pathtoPublish: '$(PackageFileName)' 
+    pathtoPublish: $(PackageFileName)
     artifactName: 'wcfService' 
