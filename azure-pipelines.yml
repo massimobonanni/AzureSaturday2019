@@ -23,6 +23,17 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'mySonarCloud'
+    organization: 'massimobonanni'
+    scannerMode: 'MSBuild'
+    projectKey: 'AzureSaturday2019'
+    projectName: 'AzureSaturday2019'
+    projectVersion: '$(Build.BuildNumber)'
+
+- task: SonarCloudAnalyze@1
+
 - task: VSBuild@1
   displayName: 'Build WepAPI CORE'
   inputs:
@@ -44,6 +55,9 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
 - task: PublishBuildArtifacts@1
   displayName: 'Publish $(webAPICore) artifact'
   inputs:
