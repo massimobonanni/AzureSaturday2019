@@ -32,8 +32,6 @@ steps:
     projectName: 'AzureSaturday2019'
     projectVersion: '$(Build.BuildNumber)'
 
-- task: SonarCloudAnalyze@1
-
 - task: VSBuild@1
   displayName: 'Build WepAPI CORE'
   inputs:
@@ -50,14 +48,17 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+    
 - task: VSTest@2
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
 - task: PublishBuildArtifacts@1
   displayName: 'Publish $(webAPICore) artifact'
   inputs:
