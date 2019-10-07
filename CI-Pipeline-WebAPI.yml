@@ -31,36 +31,13 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'mySonarCloud'
-    organization: 'massimobonanni'
-    scannerMode: 'MSBuild'
-    projectKey: 'AzureSaturday2019'
-    projectName: 'AzureSaturday2019'
-    projectVersion: '$(Build.BuildNumber)-WebAPI'
-
-- task: DotNetCoreCLI@2
-  displayName: 'Build WepAPI CORE'
-  inputs:
-    command: 'build'
-    projects: '$(webAPICore)'
-    configuration: '$(buildConfiguration)'
-
 - task: VSBuild@1
-  enabled: false
   displayName: 'Build WepAPI CORE'
   inputs:
     solution: '$(webAPICore)'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebAPICore.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
-- task: SonarCloudAnalyze@1
-
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
     
 - task: VSTest@2
   inputs:
