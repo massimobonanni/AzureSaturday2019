@@ -4,14 +4,22 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - MathService/*
+    exclude:
+    - WebAPI/*
+    - AzureTemplate/*
 
 pool:
   vmImage: 'windows-latest'
 
 variables:
   solution: '**/*.sln'
-  webAPICore: '**/WebAPI/WebAPI.csproj"'
   wcfService: '**/MathService/MathService.csproj"'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
@@ -33,14 +41,6 @@ steps:
     projectVersion: '$(Build.BuildNumber)'
 
 - task: VSBuild@1
-  displayName: 'Build WepAPI CORE'
-  inputs:
-    solution: '$(webAPICore)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebAPICore.zip" /p:DeployIisAppPath="Default Web Site"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSBuild@1
   displayName: 'Build WCF Service'
   inputs:
     solution: '$(wcfService)'
@@ -58,12 +58,6 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish $(webAPICore) artifact'
-  inputs:
-    pathtoPublish: '$(build.artifactStagingDirectory)\WebAPICore.zip' 
-    artifactName: 'webAPICore' 
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish $(wcfService) artifact'
