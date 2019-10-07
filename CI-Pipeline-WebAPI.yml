@@ -40,9 +40,15 @@ steps:
     projectName: 'AzureSaturday2019'
     projectVersion: '$(Build.BuildNumber)-WebAPI'
 
-
+- task: DotNetCoreCLI@2
+  displayName: 'Build WepAPI CORE'
+  inputs:
+    command: 'build'
+    projects: '$(webAPICore)'
+    configuration: '$(buildConfiguration)'
 
 - task: VSBuild@1
+  enabled: false
   displayName: 'Build WepAPI CORE'
   inputs:
     solution: '$(webAPICore)'
