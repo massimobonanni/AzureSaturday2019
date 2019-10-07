@@ -1,0 +1,72 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  webAPICore: '**/WebAPI/WebAPI.csproj"'
+  wcfService: '**/MathService/MathService.csproj"'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'mySonarCloud'
+    organization: 'massimobonanni'
+    scannerMode: 'MSBuild'
+    projectKey: 'AzureSaturday2019'
+    projectName: 'AzureSaturday2019'
+    projectVersion: '$(Build.BuildNumber)'
+
+- task: VSBuild@1
+  displayName: 'Build WepAPI CORE'
+  inputs:
+    solution: '$(webAPICore)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebAPICore.zip" /p:DeployIisAppPath="Default Web Site"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: VSBuild@1
+  displayName: 'Build WCF Service'
+  inputs:
+    solution: '$(wcfService)'
+    msbuildArgs: '/p:OutputPath="$(build.artifactStagingDirectory)\WCFService.zip" /p:OutDir="$(build.artifactStagingDirectory)" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WCFService.zip" /p:DeployIisAppPath="Default Web Site"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+    
+- task: VSTest@2
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish $(webAPICore) artifact'
+  inputs:
+    pathtoPublish: '$(build.artifactStagingDirectory)\WebAPICore.zip' 
+    artifactName: 'webAPICore' 
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish $(wcfService) artifact'
+  inputs:
+    pathtoPublish: 'd:\a\1\a\_PublishedWebsites\MathService_Package\MathService.zip'
+    artifactName: 'wcfService' 
