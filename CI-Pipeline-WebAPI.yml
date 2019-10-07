@@ -38,7 +38,9 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'AzureSaturday2019'
     projectName: 'AzureSaturday2019'
-    projectVersion: '$(Build.BuildNumber)'
+    projectVersion: '$(Build.BuildNumber)-WebAPI'
+
+
 
 - task: VSBuild@1
   displayName: 'Build WepAPI CORE'
